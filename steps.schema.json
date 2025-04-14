@@ -1,0 +1,93 @@
+{
+  // Experiment/Protocol Metadata
+  "experiment_title": "string",
+  "description": "string (short overview)",
+  "specimens": ["chicken", "frog", "pig", ...],   // Valid specimen names (cross-ref specimens.json)
+  "steps": [ { /* see 'step' schema below */ } ],
+
+  // Optionally provide tool and rubric references by filename for multi-file projects
+  "tools_reference": "tools.json",
+  "assessment_rubric_reference": "assessment_rubric.json",
+
+  // --- SINGLE STEP OBJECT DEFINITION ---
+  // Each object in "steps" array:
+  "step": {
+    "id": "unique_step_id",    // String
+    "title": "short display title",
+    "description": "student-readable instructions",
+    "specimens": ["chicken"], // Array; which specimens apply (empty/omitted = all)
+    "entry_zones": ["tray1"], // Where in VR/table space this step applies/starts
+
+    // --- Tool Interaction Requirements ---
+    "required_tools": ["scalpel", "forceps"],      // Cross-ref tools.json, can be empty/omitted
+    "valid_tool_combinations": [                   // Array of arrays; at least one must be met
+      ["scalpel", "forceps"],
+      ["scissors", "forceps"]
+    ],
+
+    // --- Input/Interaction Mappings (optional override for this step) ---
+    "input_mappings": {
+      "trigger": "use_tool",
+      "grip": "grab_tool",
+      "thumbstick": "rotate_specimen"
+    },
+
+    // --- Hints and Hints Triggers ---
+    "hints": [
+      { "trigger": "on_wrong_tool_first", "message": "Try combining a cutting and a gripping tool." },
+      { "trigger": "on_wrong_tool_repeat", "message": "Scissors or scalpel together with forceps work best." },
+      { "trigger": "after_30s_idle", "message": "Stuck? Remember to grip the skin and make a careful cut." }
+    ],
+
+    // --- Action Outcome Handlers ---
+    "on_wrong_tool": {
+      "message": "That tool is not effective.",
+      "score_penalty": 1,
+      "hint_ref": "on_wrong_tool_first"  // Optional: link to hints above by trigger or ID
+    },
+    "on_success": {
+      "actions": [
+        { "type": "animate_peel", "part": "skin", "duration": 2.0, "animation": "peel_skin.anim" },
+        { "type": "reveal", "part": "muscle" }
+      ],
+      "score_award": 5
+    },
+
+    // --- Physics and Visual Feedback (engine-specific, fallback to 'null' or 'false' for A-Frame) ---
+    "physics_properties": {
+      "muscle": { "softbody": true, "jiggle_strength": 0.5, "mass": 0.13 },
+      "tendon": { "softbody": false, "tension": 1.0 }
+    },
+
+    // --- Asset/Model/Animation Management ---
+    "models": {
+      "skin": { "path": "models/chicken/skin.glb", "states": ["default", "cut", "removed"], "animations": ["peel_skin.anim"] },
+      "muscle": { "path": "models/chicken/muscle.glb", "animations": ["twitch.anim"] }
+    },
+
+    // --- Final State: Expected Part Properties After Step Completes ---
+    "final_state": {
+      "skin": { "visible": false, "material": "dissected_surface", "position": [0, -0.03, 0] },
+      "muscle": { "visible": true, "highlighted": true, "material": "fresh_exposed" }
+    },
+
+    // --- Step Progression/Branching ---
+    "next_step": "next_step_id", // String; can be omitted for linear progression
+    // Optionally, include more advanced branching ("remediation_step", etc.)
+
+    // --- Assessment & Learning Goals ---
+    "assessment": {
+      "outcome": "Skin removed and muscle exposed",
+      "rubric_ids": ["tool-use", "anatomy-identified"],  // Cross-reference assessment_rubric.json
+      "learning_objective": "BIO-ANAT-01"
+    }
+  },
+
+  // --- External file links (as needed by referencing files.json, etc.) ---
+  // For validations, documentation, etc., refer to these sample files in responses:
+  //  - tools.json (tool definitions)
+  //  - specimens.json (specimen/part naming conventions)
+  //  - assessment_rubric.json (rubric/item lookup)
+  //  - api_reference.md (documentation)
+  // Only reference these when relevant and concise per the instructions above.
+}
