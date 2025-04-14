@@ -1,0 +1,50 @@
+{
+  "large_dissecting_scissors": {
+    "display_name": "Large Dissecting Scissors",
+    "model_path": "models/tools/large_dissecting_scissors.glb",
+    "interaction_types": ["cut"],
+    "default_hand": "primary"
+  },
+  "small_dissecting_scissors": {
+    "display_name": "Small Dissecting Scissors",
+    "model_path": "models/tools/small_dissecting_scissors.glb",
+    "interaction_types": ["cut"],
+    "default_hand": "primary"
+  },
+  "teethed_forceps": {
+    "display_name": "Tissue Forceps (Teethed)",
+    "model_path": "models/tools/teethed_forceps.glb",
+    "interaction_types": ["grip", "pull"],
+    "default_hand": "secondary"
+  },
+  "smooth_forceps": {
+    "display_name": "Dressing Forceps (Smooth)",
+    "model_path": "models/tools/smooth_forceps.glb",
+    "interaction_types": ["grip", "pull"],
+    "default_hand": "secondary"
+  },
+  "scalpel": {
+    "display_name": "Scalpel",
+    "model_path": "models/tools/scalpel.glb",
+    "interaction_types": ["cut"],
+    "default_hand": "primary"
+  },
+  "needle_probe": {
+    "display_name": "Needle Probe",
+    "model_path": "models/tools/needle_probe.glb",
+    "interaction_types": ["probe", "separate"],
+    "default_hand": "secondary"
+  },
+  "blunt_probe": {
+    "display_name": "Blunt Probe",
+    "model_path": "models/tools/blunt_probe.glb",
+    "interaction_types": ["probe", "separate"],
+    "default_hand": "secondary"
+  },
+  "pins": {
+    "display_name": "Pins",
+    "model_path": "models/tools/pins.glb",
+    "interaction_types": ["pin", "secure"],
+    "default_hand": "secondary"
+  }
+}
