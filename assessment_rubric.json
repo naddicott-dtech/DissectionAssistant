@@ -1,0 +1,22 @@
+[
+  {
+    "id": "tool-use",
+    "display_name": "Tool Use",
+    "criteria": "Correct tool(s) selected and used for the procedure."
+  },
+  {
+    "id": "anatomy-identified",
+    "display_name": "Anatomy Identified",
+    "criteria": "Successfully identified the targeted anatomical structure."
+  },
+  {
+    "id": "precision",
+    "display_name": "Precision Handling",
+    "criteria": "Minimized extraneous damage and demonstrated accurate manipulation."
+  },
+  {
+    "id": "procedure-followed",
+    "display_name": "Procedure Followed",
+    "criteria": "Followed proper sequence and safety guidelines for the dissection."
+  }
+]
